@@ -99,14 +99,17 @@ direction <- "greater"
 
 # 2. Choie du test
 type_test <- choisir_test_statisque(n)
+cat("La loie de probabiliter à utiliser ici est celle de ", type_test$loi, "\n")
 
 # 3. Valeur observer
 valeur_observer <- calculer_valeur_observer(x_bar, mu_zero, s, n)
+cat("LA valeur observer du test est ", valeur_observer, "\n")
 
 # 4. Point critique
 point_critique <- calculer_point_critique(n, alpha, is_unilateral)
+cat("Point critique : ", point_critique$valeur, "\n")
 
-# 5. Zonr de non rejet
+# 5. Zone de non rejet
 zone_non_rejet <- definir_zone_non_rejet(point_critique$valeur, is_unilateral, direction) # nolint: line_length_linter.
 
 # Test d'affichage
