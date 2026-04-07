@@ -10,7 +10,7 @@ choisir_test_statisque <- function(n) {
     loi <- "Loi Normal (Z)"
   }
 
-  return(list(test = nom_test, loi = loi))
+  list(test = nom_test, loi = loi)
 }
 
 calculer_valeur_observer <- function(x_bar, mu_zero, s, n) {
@@ -20,14 +20,14 @@ calculer_valeur_observer <- function(x_bar, mu_zero, s, n) {
   # Calcul de la valeur observé
   valeur_observer <- (x_bar - mu_zero) / erreur
 
-  return(valeur_observer)
+  valeur_observer
 }
 
 calculer_point_critique <- function(n, alpha, is_unilateral) {
   # Determiner la probabiliter
   # 1 - alpha si unilaterale et 1 - alpha/2 sinon
 
-  proba <- if(is_unilateral) 1 - alpha else 1 - (alpha / 2)
+  proba <- ifelse(is_unilateral, 1 - alpha, 1 - (alpha / 2))
 
   # Calcul du point critique
   if (n < 30) {
@@ -40,7 +40,7 @@ calculer_point_critique <- function(n, alpha, is_unilateral) {
     type_loi <- "Z_critique"
   }
 
-  return(list(valeur = point_critique, label = type_loi))
+  list(valeur = point_critique, label = type_loi)
 }
 
 definir_zone_non_rejet <- function(point_critique, is_unilateral, direction = "greater") { # nolint: line_length_linter.
@@ -63,11 +63,11 @@ definir_zone_non_rejet <- function(point_critique, is_unilateral, direction = "g
     }
   }
 
-  return(list(
+  list(
     inf = borne_inf,
     sup = borne_sup,
     label = paste("Zone ne non rejet de l'hypothese nul (", type, ")")
-  ))
+  )
 }
 
 # ----- declaration des variables -----
@@ -103,7 +103,7 @@ cat("La loie de probabiliter à utiliser ici est celle de ", type_test$loi, "\n"
 
 # 3. Valeur observer
 valeur_observer <- calculer_valeur_observer(x_bar, mu_zero, s, n)
-cat("LA valeur observer du test est ", valeur_observer, "\n")
+cat("La valeur observer du test est ", valeur_observer, "\n")
 
 # 4. Point critique
 point_critique <- calculer_point_critique(n, alpha, is_unilateral)
