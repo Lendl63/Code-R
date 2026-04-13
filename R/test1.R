@@ -32,7 +32,7 @@ calculer_point_critique <- function(n, alpha, is_unilateral) {
   # Calcul du point critique
   if (n < 30) {
     # Loi de Student
-    point_critique <- pt(proba, df = n - 1)
+    point_critique <- qt(proba, n - 1)
     type_loi <- "t_critique"
   } else {
     # Loi Normal
@@ -73,23 +73,23 @@ definir_zone_non_rejet <- function(point_critique, is_unilateral, direction = "g
 # ----- declaration des variables -----
 
 # Moyenne de l'echantillon
-x_bar <- 12.0
+x_bar <- 22
 
 # Taille de l'echantillon
-n <- 35
+n <- 15
 
 # L'ecart type sigma (s)
-s <- 2.0
+s <- 4.0
 
 # Moyenne theorique
-mu_zero <- 9.0
+mu_zero <- 20.0
 
 # Seuil de signification
 alpha <- 0.05
 
 # Type de test
 # TRUE = unilareral et FALSE = bilaterl
-is_unilateral <- FALSE
+is_unilateral <- TRUE
 
 # Direction du test si uniteral
 # greater ou less
