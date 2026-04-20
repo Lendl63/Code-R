@@ -221,7 +221,7 @@ if (loi == "normale") {
   cat("Statistique observée (t)    :", round(t_obs, 4), "\n")
   cat("Valeur critique             :", round(t_crit, 4), "\n")
   cat("Degrés de liberté           :", round(ddl, 2), "\n")
-  cat("Zone de non-rejet de H0     : [", round(zone_inf, 3), ";", round(zone_sup, 3), "]\n") # nolint
+  cat("Zone de non-rejet de H0     : [", round(zone_inf, 4), ";", round(zone_sup, 4), "]\n") # nolint
   cat("----------------------------------------------\n")
   cat("VERDICT :", ifelse(rejet, "REJET DE H0", "NON-REJET DE H0"), "\n")
   if (!unilateral && !is.null(ic_inf)) {
