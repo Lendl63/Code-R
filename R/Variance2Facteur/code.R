@@ -28,10 +28,10 @@ idx <- 1
 
 for (j in 1:c) {
   cat("\n========================================\n")
-  cat("   COLONNE (Machine)", j, "\n")
+  cat("   COLONNE ", j, "\n")
   cat("========================================\n")
   for (i in 1:r) {
-    prompt_cell <- paste0("Ligne (Opérateur) ", i, " - Entrez les ", n, " répétitions séparées par des espaces : ")
+    prompt_cell <- paste0("Ligne ", i, " - Entrez les ", n, " répétitions séparées par des espaces : ")
     vals <- scan(text = readline(prompt = prompt_cell), what = numeric(), quiet = TRUE)
     if (length(vals) != n) {
       stop("Erreur : Vous devez entrer exactement ", n, " valeurs.")
@@ -159,28 +159,3 @@ if (p_interaction < alpha) {
 } else {
   cat("  -> Interaction non significative (acceptation de H0).\n")
 }
-
-# -----------------------------------------------------------------------------
-# 9. SAUVEGARDE OPTIONNELLE DES RÉSULTATS
-# -----------------------------------------------------------------------------
-save_choice <- readline(prompt = "\nVoulez-vous sauvegarder les résultats dans un fichier texte ? (o/n) : ")
-if (tolower(save_choice) == "o") {
-  filename <- readline(prompt = "Nom du fichier (ex: resultats_anova.txt) : ")
-  sink(filename)
-  cat("Résultats de l'ANOVA à deux facteurs avec répétition\n")
-  cat("Données brutes :\n")
-  print(df)
-  cat("\nTableau ANOVA :\n")
-  cat(sprintf("%-20s %8s %4s %10s %10s\n", "Source", "SS", "df", "MS", "F"))
-  cat(sprintf("%-20s %8.3f %4d %10.3f %10.3f\n", "Lignes", SSR, df_SSR, MSR, F_ligne))
-  cat(sprintf("%-20s %8.3f %4d %10.3f %10.3f\n", "Colonnes", SSC, df_SSC, MSC, F_colonne))
-  cat(sprintf("%-20s %8.3f %4d %10.3f %10.3f\n", "Interaction", SS_RC, df_SS_RC, MS_RC, F_interaction))
-  cat(sprintf("%-20s %8.3f %4d %10.3f\n", "Erreur", SSE, df_SSE, MSE))
-  cat(sprintf("%-20s %8.3f %4d\n", "Total", SST, df_SST))
-  cat("\nP-valeurs :\n")
-  cat("Lignes :", p_ligne, "\nColonnes :", p_colonne, "\nInteraction :", p_interaction, "\n")
-  sink()
-  cat("Résultats sauvegardés dans", filename, "\n")
-}
-
-cat("\nFin du script.\n")
