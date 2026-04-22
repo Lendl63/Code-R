@@ -1,27 +1,27 @@
 # =============================================================================
-#  ANOVA À DEUX FACTEURS AVEC RÉPÉTITION
-#  SAISIE COLONNE PAR COLONNE (MACHINE PAR MACHINE)
+#  ANOVA À DEUX FACTEURS AVEC RÉPÉTITION SAISIE COLONNE PAR COLONNE
 # =============================================================================
 
 cat("\n===========================================================\n")
 cat("   ANOVA À DEUX FACTEURS AVEC RÉPÉTITION\n")
-cat("   Saisie colonne par colonne (Machine par Machine)\n")
+cat("   Saisie colonne par colonne\n")
 cat("===========================================================\n\n")
 
 # -----------------------------------------------------------------------------
 # 1. SAISIE DES PARAMÈTRES
 # -----------------------------------------------------------------------------
-r <- as.integer(readline(prompt = "Nombre de niveaux du facteur LIGNE (ex: Opérateurs) : "))
-c <- as.integer(readline(prompt = "Nombre de niveaux du facteur COLONNE (ex: Machines) : "))
+r <- as.integer(readline(prompt = "Nombre de niveaux du facteur LIGNE : "))
+c <- as.integer(readline(prompt = "Nombre de niveaux du facteur COLONNE : "))
 n <- as.integer(readline(prompt = "Nombre de RÉPÉTITIONS par cellule : "))
 
+#  Nombre total de valeurs
 N <- r * c * n
 cat("\nLe nombre total d'observations sera :", N, "\n\n")
 
 # -----------------------------------------------------------------------------
 # 2. SAISIE DES DONNÉES COLONNE PAR COLONNE
 # -----------------------------------------------------------------------------
-# Initialisation du vecteur des observations dans l'ordre COLONNE par COLONNE
+# Initialisation du vecteur des observations à 0 dans l'ordre COLONNE par COLONNE
 # Pour chaque colonne j, on parcourt les lignes i et pour chaque cellule on saisit n valeurs
 observations <- numeric(N)
 idx <- 1
@@ -32,7 +32,7 @@ for (j in 1:c) {
   cat("========================================\n")
   for (i in 1:r) {
     prompt_cell <- paste0("Ligne ", i, " - Entrez les ", n, " répétitions séparées par des espaces : ")
-    vals <- scan(text = readline(prompt = prompt_cell), what = numeric(), quiet = TRUE)
+    vals <- scan(text = readline(prompt = prompt_cell), what = numeric(), quiet = TRUE) # nolint
     if (length(vals) != n) {
       stop("Erreur : Vous devez entrer exactement ", n, " valeurs.")
     }
@@ -48,15 +48,15 @@ lignes   <- rep(rep(1:r, each = n), times = c)    # pour chaque colonne, r ligne
 rep_id   <- rep(1:n, times = r * c)
 
 df <- data.frame(
-  Colonne = factor(colonnes, labels = paste0("M", 1:c)),
-  Ligne   = factor(lignes, labels = paste0("Op", 1:r)),
+  Colonne = factor(colonnes, labels = paste0("C", 1:c)), # Creation des identifiants pour colonnes
+  Ligne   = factor(lignes, labels = paste0("L", 1:r)), # Creation des identifiants pour lignes
   Repetition = rep_id,
   Valeur = observations
 )
 
-# Affichage du tableau récapitulatif des données saisies
-cat("\n\n--- Données saisies (aperçu) ---\n")
-print(df, max = 20)
+# # Affichage du tableau récapitulatif des données saisies
+# cat("\n\n--- Données saisies (aperçu) ---\n") # nolint
+# print(df, max = 20)
 
 # -----------------------------------------------------------------------------
 # 3. CALCUL DES TOTAUX (conformément au support)
@@ -73,7 +73,7 @@ T_j <- tapply(df$Valeur, df$Colonne, sum)
 cell_totals <- tapply(df$Valeur, list(df$Ligne, df$Colonne), sum)
 
 # -----------------------------------------------------------------------------
-# 4. CALCUL DES SOMMES DES CARRÉS (FORMULES PAGE 31)
+# 4. CALCUL DES SOMMES DES CARRÉS
 # -----------------------------------------------------------------------------
 CF <- T_total^2 / N
 
