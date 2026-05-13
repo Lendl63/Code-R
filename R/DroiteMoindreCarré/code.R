@@ -1,12 +1,7 @@
-# =============================================================================
-#  RÉGRESSION LINÉAIRE SIMPLE (MOINDRES CARRÉS)
-#  Calcul manuel selon le support - Chapitre 5, pages 37-40
-# =============================================================================
-
-cat("\n===========================================================\n")
+cat("\n\n")
 cat("   RÉGRESSION LINÉAIRE SIMPLE - MOINDRES CARRÉS\n")
 cat("   Calcul manuel de a, b, R², etc.\n")
-cat("===========================================================\n\n")
+cat("\n\n")
 
 # ----- 1. SAISIE DES DONNÉES -----
 n <- as.integer(readline(prompt = "Nombre d'observations (paires X,Y) : "))
@@ -45,12 +40,12 @@ residus <- Y - Y_pred
 # ----- 6. SOMMES DES CARRÉS POUR R² -----
 SS_res <- sum(residus^2)            # Somme des carrés résiduelle
 SS_tot <- sum((Y - y_bar)^2)        # Somme totale
-R2 <- 1 - (SS_res / SS_tot)         # Coefficient de détermination (identique à r²)
+R2 <- 1 - (SS_res / SS_tot)         # Coefficient de détermination (identique à r²) # nolint
 
 # ----- 7. AFFICHAGE DES RÉSULTATS -----
-cat("\n===========================================================\n")
+cat("\n\n")
 cat("              RÉSULTATS DE LA RÉGRESSION\n")
-cat("===========================================================\n")
+cat("\n")
 cat(sprintf("Moyenne de X : %.4f\n", x_bar))
 cat(sprintf("Moyenne de Y : %.4f\n", y_bar))
 cat(sprintf("Coefficient de corrélation r : %.4f\n", r))
@@ -60,7 +55,7 @@ cat(sprintf("Ordonnée à l'origine a : %.4f\n", a))
 cat("\nDroite de régression estimée :\n")
 cat(sprintf("   Y_chapeau = %.4f + %.4f * X\n", a, b))
 
-# ----- 8. VALIDATION AVEC lm() (optionnelle) -----
-cat("\n--- Vérification avec la fonction lm() de R ---\n")
-modele_lm <- lm(Y ~ X)
-print(summary(modele_lm))
+# # ----- 8. VALIDATION AVEC lm() (optionnelle) -----
+# cat("\n--- Vérification avec la fonction lm() de R ---\n")
+# modele_lm <- lm(Y ~ X)
+# print(summary(modele_lm))
