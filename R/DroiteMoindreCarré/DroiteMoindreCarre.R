@@ -54,8 +54,3 @@ cat(sprintf("Pente b : %.4f\n", b))
 cat(sprintf("Ordonnée à l'origine a : %.4f\n", a))
 cat("\nDroite de régression estimée :\n")
 cat(sprintf("   Y_chapeau = %.4f + %.4f * X\n", a, b))
-
-# # ----- 8. VALIDATION AVEC lm() (optionnelle) -----
-# cat("\n--- Vérification avec la fonction lm() de R ---\n")
-# modele_lm <- lm(Y ~ X)
-# print(summary(modele_lm))

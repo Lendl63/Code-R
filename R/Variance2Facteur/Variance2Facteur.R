@@ -1,11 +1,9 @@
-# =============================================================================
 #  ANOVA À DEUX FACTEURS AVEC RÉPÉTITION SAISIE COLONNE PAR COLONNE
-# =============================================================================
 
-cat("\n===========================================================\n")
+cat("\n")
 cat("   ANOVA À DEUX FACTEURS AVEC RÉPÉTITION\n")
 cat("   Saisie colonne par colonne\n")
-cat("===========================================================\n\n")
+cat("\n")
 
 # -----------------------------------------------------------------------------
 # 1. SAISIE DES PARAMÈTRES
@@ -27,9 +25,8 @@ observations <- numeric(N)
 idx <- 1
 
 for (j in 1:c) {
-  cat("\n========================================\n")
   cat("   COLONNE ", j, "\n")
-  cat("========================================\n")
+  cat("\n")
   for (i in 1:r) {
     prompt_cell <- paste0("Ligne ", i, " - Entrez les ", n, " répétitions séparées par des espaces : ")
     vals <- scan(text = readline(prompt = prompt_cell), what = numeric(), quiet = TRUE) # nolint
@@ -114,10 +111,9 @@ F_interaction <- MS_RC / MSE
 # -----------------------------------------------------------------------------
 # 7. AFFICHAGE DU TABLEAU ANOVA
 # -----------------------------------------------------------------------------
-cat("\n\n")
-cat("===========================================================\n")
+cat("\n")
 cat("              TABLEAU D'ANALYSE DE VARIANCE\n")
-cat("===========================================================\n")
+cat("\n")
 cat(sprintf("%-20s %8s %4s %10s %10s\n", "Source", "SS", "df", "MS", "F"))
 cat("-----------------------------------------------------------\n")
 cat(sprintf("%-20s %8.3f %4d %10.3f %10.3f\n", "Lignes (Opérateur)", SSR, df_SSR, MSR, F_ligne))

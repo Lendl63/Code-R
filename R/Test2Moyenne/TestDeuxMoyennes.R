@@ -1,9 +1,3 @@
-# ============================================================================
-# TEST DE COMPARAISON DE DEUX MOYENNES
-# ============================================================================
-
-# ----------------------------- FONCTIONS UTILES ----------------------------
-
 # Fonction pour saisir un nombre avec gestion de l'erreur et valeur par défaut
 saisir_nombre <- function(message, defaut = NULL) {
   while (TRUE) {
@@ -28,7 +22,7 @@ saisir_oui_non <- function(message) {
   }
 }
 
-# ----------------------------- SAISIE DES DONNÉES ----------------------------
+#SAISIE DES DONNÉES
 
 cat("\n--- TEST DE COMPARAISON DE DEUX MOYENNES ---\n\n")
 
@@ -61,7 +55,7 @@ if (unilateral) {
   }
 }
 
-# ----------------------------- CHOIX DE LA LOI ------------------------------
+#CHOIX DE LA LOI
 
 if (n1 >= 30 && n2 >= 30) {
   loi <- "normale"
@@ -71,7 +65,7 @@ if (n1 >= 30 && n2 >= 30) {
   cat("\n→ Petits échantillons : utilisation de la loi de STUDENT (t).\n")
 }
 
-# ----------------------------- STATISTIQUE DE TEST --------------------------
+#STATISTIQUE DE TEST
 
 diff_moy <- x1 - x2
 erreur_std <- sqrt(s1^2/n1 + s2^2/n2) # nolint: infix_spaces_linter.
@@ -111,9 +105,9 @@ if (loi == "normale") {
     ic_sup <- diff_moy + z_ic * erreur_std
   }
   # Affichage
-  cat("\n==============================================\n")
-  cat("            RÉSULTATS DU TEST\n")
-  cat("==============================================\n")
+  cat("\n\n")
+  cat("RÉSULTATS DU TEST\n")
+  cat("\n")
   cat("Loi utilisée                : Normale (Z)\n")
   cat("Statistique observée (Z)    :", round(z_obs, 4), "\n")
   cat("Valeur critique             :", round(z_crit, 4), "\n")
@@ -214,9 +208,9 @@ if (loi == "normale") {
     }
   }
   # Affichage des résultats (loi de Student)
-  cat("\n==============================================\n")
-  cat("            RÉSULTATS DU TEST\n")
-  cat("==============================================\n")
+  cat("\n\n")
+  cat("RÉSULTATS DU TEST\n")
+  cat("\n")
   cat("Loi utilisée                : Student (t)\n")
   cat("Statistique observée (t)    :", round(t_obs, 4), "\n")
   cat("Valeur critique             :", round(t_crit, 4), "\n")
