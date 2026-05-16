@@ -1,3 +1,7 @@
+cat("\n\n")
+cat("   TEST DE COMPARAISON DE DEUX MOYENNES\n")
+cat("\n\n")
+
 # Fonction pour saisir un nombre avec gestion de l'erreur et valeur par défaut
 saisir_nombre <- function(message, defaut = NULL) {
   while (TRUE) {
@@ -29,12 +33,14 @@ cat("\n--- TEST DE COMPARAISON DE DEUX MOYENNES ---\n\n")
 cat("=== GROUPE 1 ===\n")
 n1 <- saisir_nombre("  Taille de l'échantillon (n1) : ")
 x1 <- saisir_nombre("  Moyenne (x̄1) : ")
-s1 <- saisir_nombre("  Écart-type (s1) : ")
+var1 <- saisir_nombre("  Variance de L'échantillon (s1²) : ")
+s1 <- sqrt(var1) # nolint
 
 cat("\n=== GROUPE 2 ===\n")
 n2 <- saisir_nombre("  Taille de l'échantillon (n2) : ")
 x2 <- saisir_nombre("  Moyenne (x̄2) : ")
-s2 <- saisir_nombre("  Écart-type (s2) : ")
+var2 <- saisir_nombre("  Variance de L'échantillon (s2²) : ")
+s2 <- sqrt(var2) # nolint
 
 # Vérification des cas mixtes (non traités)
 if ((n1 >= 30 && n2 < 30) || (n1 < 30 && n2 >= 30)) {
@@ -123,11 +129,8 @@ if (loi == "normale") {
       round(ic_sup, 3), "]\n"
     )
   }
-  cat("==============================================\n")
 } else {  # loi de Student
   # --- TEST F D'ÉGALITÉ DES VARIANCES ---
-  var1 <- s1^2
-  var2 <- s2^2
   if (var1 >= var2) {
     F_calc <- var1 / var2 # nolint: object_name_linter.
     df_num <- n1 - 1
@@ -141,7 +144,7 @@ if (loi == "normale") {
   F_crit <- qf(1 - alpha/2, df_num, df_den) # nolint
   variances_egales <- (F_calc < F_crit)
   if (variances_egales) {
-    cat("\n→ Test F : F =", round(F_calc,4), "<", round(F_crit,4), "→ variances supposées ÉGALES.\n") # nolint
+    cat("\n→ Test F : F =", round(F_calc,4), "<", round(F_crit,4), "→ variances ÉGALES (test de Fisher).\n") # nolint
     #  Ecart type
     Sp2 <- ((n1 - 1) * var1 + (n2 - 1) * var2) / (n1 + n2 - 2)
     # Variance
@@ -175,10 +178,11 @@ if (loi == "normale") {
       ic_sup <- diff_moy + t_ic * erreur_std_pool
     }
   } else {
-    cat("\n→ Test F : F =", round(F_calc,4), ">=", round(F_crit,4), "→ variances supposées INÉGALES (test de Welch).\n") # nolint
-    # Statistique de Welch
+    cat("\n→ Test F : F =", round(F_calc,4), ">=", round(F_crit,4), "→ variances INÉGALES (test de Fisher).\n") # nolint
+    # Valeur observer
     t_obs <- diff_moy / erreur_std
-    # Degrés de liberté de Satterthwaite
+    
+
     mu <- (var1 / n1) / (var1 / n1 + var2 / n2)
     ddl <- 1 / (mu^2 / (n1 - 1) + (1 - mu)^2 / (n2 - 1))
     # Valeur critique t
@@ -226,5 +230,4 @@ if (loi == "normale") {
       round(ic_sup, 3), "]\n"
     )
   }
-  cat("==============================================\n")
 }
