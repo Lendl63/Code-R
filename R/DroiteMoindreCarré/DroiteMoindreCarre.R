@@ -10,7 +10,7 @@ cat("\nEntrez les valeurs de X (variable explicative) :\n")
 X <- scan(n = n, what = numeric(), quiet = TRUE)
 
 cat("Entrez les valeurs de Y (variable réponse) :\n")
-Y <- scan(n = n, what = numeric(), quiet = TRUE)
+Y <- scan(n = n, what = numeric(), quiet = TRUE) 
 
 # ----- 2. MOYENNES -----
 x_bar <- mean(X)
@@ -22,13 +22,9 @@ den_r <- sqrt(sum((X - x_bar)^2) * sum((Y - y_bar)^2))
 r <- num_r / den_r
 
 # ----- 4. CALCUL DE LA PENTE b ET DE L'ORDONNÉE À L'ORIGINE a -----
-# Pente (méthode 1 : via r)
 s_x <- sd(X)   # écart-type échantillon (n-1)
 s_y <- sd(Y)
 b <- r * (s_y / s_x)
-
-# Pente (méthode 2 : formule directe des moindres carrés) - donne la même chose
-b_direct <- sum((X - x_bar) * (Y - y_bar)) / sum((X - x_bar)^2)
 
 # Ordonnée à l'origine
 a <- y_bar - b * x_bar

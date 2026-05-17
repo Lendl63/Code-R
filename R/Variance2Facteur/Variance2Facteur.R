@@ -125,33 +125,33 @@ cat(sprintf("%-20s %8.3f %4d\n", "Total", SST, df_SST))
 cat("===========================================================\n")
 
 # -----------------------------------------------------------------------------
-# 8. CALCUL DES P-VALEURS ET DÉCISION
+# 8. CALCUL DES VALEURS CRITIQUES ET DÉCISION
 # -----------------------------------------------------------------------------
-alpha <- 0.05
+alpha <- as.integer(readline(prompt = "Donnez la valeur du seuil (alpha) : "))
 cat("\nNiveau de signification alpha utilisé :", alpha, "\n")
 
-p_ligne       <- pf(F_ligne, df_SSR, df_SSE, lower.tail = FALSE)
-p_colonne     <- pf(F_colonne, df_SSC, df_SSE, lower.tail = FALSE)
-p_interaction <- pf(F_interaction, df_SS_RC, df_SSE, lower.tail = FALSE)
+Crit_ligne       <- qf(1 - alpha, df_SSR, df_SSE)
+Crit_colonne     <- qf(1 - alpha, df_SSC, df_SSE)
+Crit_interaction <- qf(1 - alpha, df_SS_RC, df_SSE)
 
-cat("\n--- P-valeurs ---\n")
-cat(sprintf("Lignes (Opérateur) : p = %.4f\n", p_ligne))
-cat(sprintf("Colonnes (Machine) : p = %.4f\n", p_colonne))
-cat(sprintf("Interaction        : p = %.4f\n", p_interaction))
+cat("\n--- Valeurs critiques ---\n")
+cat(sprintf("Lignes       = %.4f\n", Crit_ligne))
+cat(sprintf("Colonnes     = %.4f\n", Crit_colonne))
+cat(sprintf("Interaction  = %.4f\n", Crit_interaction))
 
-cat("\n--- Décisions (H0 rejetée si p < alpha) ---\n")
-if (p_ligne < alpha) {
+cat("\n--- Décisions ---\n")
+if (Crit_ligne < F_ligne) {
   cat("  -> Effet LIGNE significatif (rejet de H0).\n")
 } else {
   cat("  -> Effet LIGNE non significatif (acceptation de H0).\n")
 }
-if (p_colonne < alpha) {
-  cat("  -> Effet COLONNE significatif (rejet de H0).\n")
+if (Crit_colonne < F_colonne) {
+  cat("  -> Effet COLONNE significatif (rejet de H0 prime).\n")
 } else {
-  cat("  -> Effet COLONNE non significatif (acceptation de H0).\n")
+  cat("  -> Effet COLONNE non significatif (acceptation de H0 prime).\n")
 }
-if (p_interaction < alpha) {
-  cat("  -> Interaction significative (rejet de H0).\n")
+if (Crit_interaction < F_interaction) {
+  cat("  -> Interaction significative (rejet de H0 second).\n")
 } else {
-  cat("  -> Interaction non significative (acceptation de H0).\n")
+  cat("  -> Interaction non significative (acceptation de H0 second).\n")
 }
