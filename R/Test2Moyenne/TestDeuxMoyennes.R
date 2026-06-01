@@ -26,8 +26,6 @@ saisir_oui_non <- function(message) {
   }
 }
 
-#SAISIE DES DONNÉES
-
 cat("\n--- TEST DE COMPARAISON DE DEUX MOYENNES ---\n\n")
 
 cat("=== GROUPE 1 ===\n")
